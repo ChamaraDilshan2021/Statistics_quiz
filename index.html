@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Statistics Master Quiz (Chapters 1-3)</title>
+    <title>Statistics Master (Real AI & Math)</title>
     
     <script>
     window.MathJax = {
@@ -288,241 +288,201 @@
                 q: "What is the key difference between a Permutation and a Combination?",
                 options: ["In Permutations, order matters; in Combinations, order does not matter.", "In Combinations, order matters; in Permutations, order does not matter.", "Permutations are for infinite sets; Combinations are for finite sets.", "There is no difference."],
                 correct: 0,
-                ai: "<strong>Permutation</strong> is an arrangement where order is important (e.g., 1st, 2nd, 3rd place). <strong>Combination</strong> is a selection where order is not important (e.g., picking 3 friends)."
             },
             {
                 q: "Which formula represents the number of Permutations (${}_nP_r$)?",
-                options: ["n! / (n-r)!", "n! / (r! (n-r)!)", "n! * r!", "(n-r)! / n!"],
+                options: ["$n! / (n-r)!$", "$n! / (r! (n-r)!)$", "$n! \\times r!$", "$(n-r)! / n!$"],
                 correct: 0,
-                ai: "The formula for permutations is <strong>${}_nP_r = \\frac{n!}{(n-r)!}$</strong>."
             },
             {
-                q: "What is the value of 0! (Zero Factorial)?",
+                q: "What is the value of $0!$ (Zero Factorial)?",
                 options: ["0", "1", "Undefined", "Infinity"],
                 correct: 1,
-                ai: "As a special mathematical definition, <strong>$0! = 1$</strong>."
             },
             {
                 q: "If you need to select 3 winners (Gold, Silver, Bronze) from 43 race cars, which method do you use?",
-                options: ["Combination (${}_{43}C_3$)", "Permutation (${}_{43}P_3$)", "Factorial (43!)", "Addition rule"],
+                options: ["Combination (${}_{43}C_3$)", "Permutation (${}_{43}P_3$)", "Factorial ($43!$)", "Addition rule"],
                 correct: 1,
-                ai: "Since the <strong>order matters</strong> (Gold is different from Silver), this is a <strong>Permutation</strong> problem."
             },
             {
                 q: "If you need to hire 4 companies out of 16 bidding companies (where all 4 are equal), which method do you use?",
                 options: ["Permutation", "Combination", "Geometric Mean", "Random assignment"],
                 correct: 1,
-                ai: "Since the <strong>order does not matter</strong> (being hired is the same for all 4), this is a <strong>Combination</strong>."
             },
             {
                 q: "In an Experiment (vs. Observational Study), the investigator:",
                 options: ["Merely observes what happens naturally.", "Assigns treatments to experimental units.", "Calculates the mean only.", "Does not interfere with subjects."],
                 correct: 1,
-                ai: "In an <strong>experiment</strong>, investigators actively <strong>apply treatments</strong> (e.g., assigning a Yoga class) to observe effects."
             },
             {
                 q: "The set of all possible outcomes of a random phenomenon is called the:",
                 options: ["Sample Space", "Event Horizon", "Probability Model", "Null Set"],
                 correct: 0,
-                ai: "The <strong>Sample Space</strong> is the list or set of all possible outcomes (e.g., {Heads, Tails} for a coin)."
             },
             {
                 q: "The probability of an event is always a number between:",
                 options: ["-1 and 1", "0 and 100", "0 and 1", "1 and 10"],
                 correct: 2,
-                ai: "Probability ranges from <strong>0 (impossible) to 1 (certain)</strong>."
             },
             {
                 q: "The intersection of two events A and B ($A \\cap B$) represents:",
                 options: ["Outcomes in A or B", "Outcomes in A but not B", "Outcomes in both A and B", "Outcomes not in A"],
                 correct: 2,
-                ai: "The intersection ($A \\cap B$) consists of outcomes that are in <strong>BOTH</strong> event A AND event B."
             },
             {
                 q: "If two events have NO outcomes in common, they are called:",
                 options: ["Independent", "Mutually Exclusive (Disjoint)", "Complements", "Dependent"],
                 correct: 1,
-                ai: "<strong>Mutually Exclusive</strong> (or disjoint) events cannot happen at the same time; their intersection is the empty set ($\\emptyset$)."
             },
             {
                 q: "What is the formula for the Probability of the Complement ($P(A')$)?",
-                options: ["1 + P(A)", "1 - P(A)", "P(A) - 1", "P(A) / 2"],
+                options: ["$1 + P(A)$", "$1 - P(A)$", "$P(A) - 1$", "$P(A) / 2$"],
                 correct: 1,
-                ai: "The probability that event A does <strong>not</strong> occur is <strong>$1 - P(A)$</strong>."
             },
             {
                 q: "Which rule applies if events A and B are Independent?",
-                options: ["P(A and B) = P(A) + P(B)", "P(A and B) = P(A) * P(B)", "P(A|B) = P(B)", "P(A or B) = 0"],
+                options: ["$P(A \\cap B) = P(A) + P(B)$", "$P(A \\cap B) = P(A) \\times P(B)$", "$P(A|B) = P(B)$", "$P(A \\cup B) = 0$"],
                 correct: 1,
-                ai: "For <strong>independent</strong> events, the probability of both happening is the <strong>product</strong> of their individual probabilities."
             },
             {
                 q: "The General Addition Rule for any two events A and B is:",
-                options: ["P(A U B) = P(A) + P(B)", "P(A U B) = P(A) + P(B) - P(A n B)", "P(A U B) = P(A) * P(B)", "P(A U B) = P(A) - P(B)"],
+                options: ["$P(A \\cup B) = P(A) + P(B)$", "$P(A \\cup B) = P(A) + P(B) - P(A \\cap B)$", "$P(A \\cup B) = P(A) \\times P(B)$", "$P(A \\cup B) = P(A) - P(B)$"],
                 correct: 1,
-                ai: "To find P(A or B), you add the probabilities but must <strong>subtract the intersection</strong> $P(A \\cap B)$ to avoid double-counting."
             },
             {
                 q: "Conditional Probability $P(B|A)$ is read as:",
                 options: ["Probability of B minus A", "Probability of B or A", "Probability of B given that A has occurred", "Probability of A given B"],
                 correct: 2,
-                ai: "The notation $P(B|A)$ means the probability of <strong>B given A</strong>."
             },
             {
                 q: "Two events A and B are Independent if:",
-                options: ["P(B|A) = P(B)", "P(A n B) = 0", "P(A) + P(B) = 1", "They cannot happen together"],
+                options: ["$P(B|A) = P(B)$", "$P(A \\cap B) = 0$", "$P(A) + P(B) = 1$", "They cannot happen together"],
                 correct: 0,
-                ai: "Events are <strong>independent</strong> if knowing A happened does <strong>not change</strong> the probability of B ($P(B|A) = P(B)$)."
             },
             {
                 q: "In a tree diagram, the sum of probabilities on branches originating from the same node must equal:",
                 options: ["0.5", "100", "1", "Unknown"],
                 correct: 2,
-                ai: "All possible branches from a single point cover the entire sample space for that stage, so they must sum to <strong>1</strong>."
             },
             {
                 q: "Bayes' Theorem is primarily used to:",
                 options: ["Calculate simple averages.", "Find the median of a dataset.", "Find a conditional probability $P(A|B)$ using the reverse probability $P(B|A)$.", "Plot data."],
                 correct: 2,
-                ai: "<strong>Bayes' Theorem</strong> allows us to reverse the condition, finding $P(A|B)$ when we know $P(B|A)$ and the prior probabilities."
             },
             {
                 q: "If tossing a coin and rolling a die, how many total outcomes are in the sample space?",
-                options: ["2 + 6 = 8", "2 * 6 = 12", "6 - 2 = 4", "36"],
+                options: ["$2 + 6 = 8$", "$2 \\times 6 = 12$", "$6 - 2 = 4$", "36"],
                 correct: 1,
-                ai: "There are 2 outcomes for the coin and 6 for the die. Total outcomes = $2 \\times 6 = 12$."
             },
             {
                 q: "If A and B are Mutually Exclusive, then $P(A \\cap B)$ equals:",
-                options: ["1", "0", "0.5", "P(A)*P(B)"],
+                options: ["1", "0", "0.5", "$P(A) \\times P(B)$"],
                 correct: 1,
-                ai: "Mutually exclusive events cannot happen at the same time, so the probability of their intersection is <strong>0</strong>."
             },
             {
                 q: "What is the formula for ${}_nC_r$?",
-                options: ["n! / (n-r)!", "n! / (r!(n-r)!)", "r! / n!", "n! * r!"],
+                options: ["$n! / (n-r)!$", "$n! / (r!(n-r)!)$", "$r! / n!$", "$n! \\times r!$"],
                 correct: 1,
-                ai: "Combinations divide out the rearrangements of the selected items ($r!$) because order doesn't matter: <strong>$\\frac{n!}{r!(n-r)!}$</strong>."
             },
             {
                 q: "A randomized experiment controls the assignment of treatments using:",
                 options: ["Personal preference", "A chance mechanism", "Alphabetical order", "Age"],
                 correct: 1,
-                ai: "Randomized experiments use a <strong>chance mechanism</strong> (like a coin flip or RNG) to assign treatments to remove bias."
             },
             {
                 q: "In the context of probability, 'Union' ($A \\cup B$) corresponds to the logical operator:",
                 options: ["AND", "OR", "NOT", "XOR"],
                 correct: 1,
-                ai: "The Union ($A \\cup B$) contains elements in A, B, or both, corresponding to the logical <strong>OR</strong>."
             },
             {
                 q: "Which diagram is commonly used to visualize intersections and unions of sets?",
                 options: ["Histogram", "Scatter Plot", "Venn Diagram", "Box Plot"],
                 correct: 2,
-                ai: "<strong>Venn Diagrams</strong> use overlapping circles to visually represent the relationships (unions, intersections) between sets."
             },
             {
-                q: "If P(Rain) = 0.3, what is P(No Rain)?",
+                q: "If $P(Rain) = 0.3$, what is $P(No Rain)$?",
                 options: ["0.3", "0.5", "0.7", "1.0"],
                 correct: 2,
-                ai: "Complement rule: $1 - 0.3 = 0.7$."
             },
             {
-                q: "In the CEO example (Bayes' Theorem), what did P(B|A) represent?",
+                q: "In the CEO example (Bayes' Theorem), what did $P(B|A)$ represent?",
                 options: ["Prob of CEO replacement given stock increased", "Prob of stock increase given CEO replacement", "Prob of stock increase", "Prob of no replacement"],
                 correct: 0,
-                ai: "In the text's notation, P(B|A) was the probability of <strong>CEO replacement (B)</strong> given the <strong>stock increased (A)</strong>."
             },
             {
                 q: "If you roll a fair 6-sided die, what is P(Rolling a 3)?",
                 options: ["1/2", "1/6", "1/3", "3/6"],
                 correct: 1,
-                ai: "There is one '3' on a 6-sided die. Probability = <strong>1/6</strong>."
             },
             {
                 q: "Two events are 'Dependent' if:",
-                options: ["P(A|B) = P(A)", "The outcome of one affects the probability of the other.", "They are mutually exclusive.", "P(A) = P(B)"],
+                options: ["$P(A|B) = P(A)$", "The outcome of one affects the probability of the other.", "They are mutually exclusive.", "$P(A) = P(B)$"],
                 correct: 1,
-                ai: "Dependence means the occurrence of one event <strong>changes the likelihood</strong> of the other occurring."
             },
             {
                 q: "Calculate ${}_4C_2$ (Choosing 2 items from 4).",
                 options: ["2", "4", "6", "12"],
                 correct: 2,
-                ai: "$\\frac{4!}{2!(4-2)!} = \\frac{24}{2 \\times 2} = 6$."
             },
             {
                 q: "In a medical test context, a 'False Positive' usually refers to:",
                 options: ["Testing positive when you DO have the disease", "Testing negative when you DO have the disease", "Testing positive when you do NOT have the disease", "Testing negative when you do NOT have the disease"],
                 correct: 2,
-                ai: "A false positive is an error where the test says 'Yes' (Positive) but the truth is 'No' (Healthy)."
             },
             {
-                q: "If P(A) = 0.6, P(B) = 0.4, and A & B are Independent, what is P(A and B)?",
+                q: "If $P(A) = 0.6$, $P(B) = 0.4$, and A & B are Independent, what is $P(A \\cap B)$?",
                 options: ["1.0", "0.24", "0.2", "0.6"],
                 correct: 1,
-                ai: "Since they are independent: $0.6 \\times 0.4 = 0.24$."
             },
             {
                 q: "A sample space is denoted by which symbol in Venn diagrams?",
-                options: ["S or $\\xi$ (Greek Xi) or $\\Omega$", "X", "Y", "Q"],
+                options: ["S or $\\xi$ or $\\Omega$", "X", "Y", "Q"],
                 correct: 0,
-                ai: "The rectangle surrounding the circles in a Venn diagram represents the universal sample space, often denoted by $\\xi$ or S."
             },
             {
                 q: "In the Yoga example, the group NOT doing Yoga is called the:",
                 options: ["Experimental group", "Control group", "Variable group", "Outlier group"],
                 correct: 1,
-                ai: "The group that does not receive the treatment (Yoga) serves as a baseline and is called the <strong>Control group</strong>."
             },
             {
                 q: "How many ways can 3 passengers sit in 7 empty seats (Order matters)?",
                 options: ["210", "35", "21", "7"],
                 correct: 0,
-                ai: "This is a permutation ${}_7P_3$. $7 \\times 6 \\times 5 = 210$."
             },
             {
-                q: "If P(A) = 0.2, P(B) = 0.4, and they are Mutually Exclusive, what is P(A or B)?",
+                q: "If $P(A) = 0.2$, $P(B) = 0.4$, and they are Mutually Exclusive, what is $P(A \\cup B)$?",
                 options: ["0.6", "0.08", "0.2", "0.8"],
                 correct: 0,
-                ai: "For mutually exclusive events, just add them: $0.2 + 0.4 = 0.6$."
             },
             {
                 q: "Which of the following is an example of a Random Phenomenon?",
                 options: ["The sun rising in the East", "Tossing a fair coin", "Calculating 2+2", "Freezing water at 0°C"],
                 correct: 1,
-                ai: "Tossing a coin is random because the individual outcome is uncertain, though the long-term pattern is predictable."
             },
             {
                 q: "The multiplication rule for Dependent events is:",
-                options: ["P(A and B) = P(A) * P(B)", "P(A and B) = P(A) * P(B|A)", "P(A and B) = P(A) + P(B)", "P(A and B) = P(A|B) * P(B|A)"],
+                options: ["$P(A \\cap B) = P(A) \\times P(B)$", "$P(A \\cap B) = P(A) \\times P(B|A)$", "$P(A \\cap B) = P(A) + P(B)$", "$P(A \\cap B) = P(A|B) \\times P(B|A)$"],
                 correct: 1,
-                ai: "If events are dependent, you must multiply the probability of A by the probability of B <strong>given that A happened</strong>."
             },
             {
-                q: "If P(A) = 0.5, P(B) = 0.3, and P(A U B) = 0.7, find P(A n B).",
+                q: "If $P(A) = 0.5$, $P(B) = 0.3$, and $P(A \\cup B) = 0.7$, find $P(A \\cap B)$.",
                 options: ["0.1", "0.2", "0.15", "0.8"],
                 correct: 0,
-                ai: "Using $P(A \\cup B) = P(A) + P(B) - P(A \\cap B)$: $0.7 = 0.5 + 0.3 - X$. $X = 0.1$."
             },
             {
-                q: "In the 'Match' example for medical residency, P(A)=0.93 and P(B|A)=0.82. What is P(A and B)?",
+                q: "In the 'Match' example for medical residency, $P(A)=0.93$ and $P(B|A)=0.82$. What is $P(A \\cap B)$?",
                 options: ["0.763", "0.11", "1.75", "0.82"],
                 correct: 0,
-                ai: "$0.93 \\times 0.82 \\approx 0.763$."
             },
             {
                 q: "Why are 'Weather' events often Dependent?",
                 options: ["They are random.", "Weather moves in systems; rain today increases chance of rain tomorrow.", "Weather is mutually exclusive.", "They sum to 1."],
                 correct: 1,
-                ai: "Weather events are usually <strong>dependent</strong> because the current state (raining) physically influences the next state."
             },
             {
                 q: "What is the Total Probability of the sample space?",
                 options: ["0", "0.5", "1", "100"],
                 correct: 2,
-                ai: "The sum of probabilities of all possible distinct outcomes in a sample space must equal <strong>1</strong>."
             }
         ]
     };
@@ -561,7 +521,9 @@
 
     function renderQuestion() {
         const q = currentChapter[currentIndex];
-        ui.text.innerHTML = `${currentIndex + 1}. ${q.q}`; // Use innerHTML for math
+        
+        // Use innerHTML to allow math inside question text
+        ui.text.innerHTML = `${currentIndex + 1}. ${q.q}`;
         ui.progress.innerText = `Question ${currentIndex + 1}/${currentChapter.length}`;
         ui.options.innerHTML = '';
         ui.aiBox.classList.remove('show');
@@ -601,7 +563,7 @@
 
     async function fetchAIExplanation() {
         const q = currentChapter[currentIndex];
-        const cacheKey = currentChapter[currentIndex].q; // Use question text as key
+        const cacheKey = q.q; // Use question text as key
 
         ui.aiBox.classList.add('show');
         
