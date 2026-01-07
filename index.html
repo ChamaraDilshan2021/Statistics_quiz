@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Statistics Advanced Quiz (Groq AI Powered)</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1e40af;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text: #0f172a;
+            --success-bg: #dcfce7;
+            --success-text: #166534;
+            --error-bg: #fee2e2;
+            --error-text: #991b1b;
+            --accent: #7c3aed;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .app-container {
+            width: 100%;
+            max-width: 800px;
+        }
+
+        /* --- SCREENS --- */
+        .screen { display: none; animation: fadeIn 0.4s ease-in-out; }
+        .screen.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* --- MENU --- */
+        .menu-card {
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .chapter-grid { display: grid; gap: 15px; margin-top: 30px; }
+        .chapter-btn {
+            background: white; border: 2px solid #e2e8f0; padding: 20px;
+            border-radius: 12px; font-size: 1.1rem; font-weight: 600;
+            cursor: pointer; display: flex; justify-content: space-between; align-items: center;
+            transition: all 0.2s;
+        }
+        .chapter-btn:hover { border-color: var(--primary); background: #eff6ff; transform: translateY(-2px); }
+
+        /* --- QUIZ --- */
+        .quiz-header {
+            background: var(--card-bg); padding: 15px 25px; border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); margin-bottom: 20px;
+            display: flex; justify-content: space-between; font-weight: 600; color: #64748b;
+        }
+        .question-card {
+            background: var(--card-bg); padding: 30px; border-radius: 16px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); margin-bottom: 20px;
+        }
+        .q-text { font-size: 1.35rem; margin-bottom: 25px; line-height: 1.5; font-weight: 600; color: #1e293b; }
+        .option {
+            display: block; width: 100%; text-align: left; padding: 18px; margin-bottom: 12px;
+            background: white; border: 2px solid #e2e8f0; border-radius: 12px;
+            font-size: 1.05rem; cursor: pointer; transition: all 0.2s; color: #334155;
+        }
+        .option:hover:not(:disabled) { border-color: var(--primary); background: #f1f5f9; }
+        .option.correct { border-color: var(--success-text); background-color: var(--success-bg); color: var(--success-text); }
+        .option.incorrect { border-color: var(--error-text); background-color: var(--error-bg); color: var(--error-text); }
+
+        /* --- AI SECTION --- */
+        .ai-box {
+            margin-top: 25px; background: #fbfbfe; border: 1px solid #e9d5ff;
+            border-radius: 12px; padding: 20px; display: none;
+        }
+        .ai-box.show { display: block; animation: slideDown 0.3s ease; }
+        .ai-header {
+            color: var(--accent); font-weight: 700; font-size: 0.9rem;
+            text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px;
+            display: flex; align-items: center; gap: 8px; border-bottom: 1px solid #e9d5ff; padding-bottom: 8px;
+        }
+        .ai-content { font-size: 0.95rem; line-height: 1.7; color: #475569; }
+        .ai-content strong { color: #1e293b; font-weight: 700; }
+        
+        /* Loading Spinner */
+        .loader {
+            display: flex; align-items: center; gap: 10px; color: #64748b; font-style: italic;
+        }
+        .spinner {
+            width: 16px; height: 16px; border: 2px solid #e9d5ff; 
+            border-top-color: var(--accent); border-radius: 50%; animation: spin 1s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* Controls */
+        .controls { display: flex; gap: 15px; margin-top: 30px; }
+        .btn {
+            padding: 14px 24px; border-radius: 10px; border: none; font-weight: 600;
+            cursor: pointer; font-size: 1rem; flex: 1; transition: all 0.2s;
+        }
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-primary:hover { background: var(--primary-dark); }
+        .btn-primary:disabled { background: #cbd5e1; cursor: not-allowed; }
+        .btn-ai { background: white; border: 2px solid var(--accent); color: var(--accent); flex: 0 0 auto; }
+        .btn-ai:hover { background: #faf5ff; }
+
+        /* --- RESULT --- */
+        .result-card { background: white; padding: 60px; border-radius: 20px; text-align: center; }
+        .score-big { font-size: 5rem; font-weight: 800; color: var(--primary); margin: 20px 0; }
+    </style>
+</head>
+<body>
+
+<div class="app-container">
+
+    <div id="screen-menu" class="screen active">
+        <div class="menu-card">
+            <h1 style="color: var(--primary-dark);">Statistics Master</h1>
+            <p style="color: #64748b;">Powered by Llama 3.3 (Groq)</p>
+            <div class="chapter-grid">
+                <button class="chapter-btn" onclick="startChapter('ch1')">
+                    <span>Chapter 1: Fundamentals</span>
+                    <span style="background:#f1f5f9; padding:4px 10px; border-radius:20px; font-size:0.8rem;">40 Qs</span>
+                </button>
+                <button class="chapter-btn" onclick="startChapter('ch2')">
+                    <span>Chapter 2: Visualization</span>
+                    <span style="background:#f1f5f9; padding:4px 10px; border-radius:20px; font-size:0.8rem;">40 Qs</span>
+                </button>
+
+                <button class="chapter-btn" onclick="startChapter('ch3')">
+                    <span>Chapter 3: Probability</span>
+                    <span style="background:#f1f5f9; padding:4px 10px; border-radius:20px; font-size:0.8rem;">40 Qs</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="screen-quiz" class="screen">
+        <div class="quiz-header">
+            <span id="quiz-progress">Question 1/40</span>
+            <span style="cursor:pointer;" onclick="location.reload()">Exit</span>
+        </div>
+
+        <div class="question-card">
+            <div id="question-text" class="q-text"></div>
+            <div id="options-container"></div>
+
+            <div id="ai-container" class="ai-box">
+                <div class="ai-header">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v1a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-1H2a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h1a7 7 0 0 1 7-7h1V5.73c-.6-.34-1-.99-1-1.73a2 2 0 0 1 2-2M7.5 13A2.5 2.5 0 1 0 5 15.5 2.5 2.5 0 0 0 7.5 13m9 0A2.5 2.5 0 1 0 14 15.5 2.5 2.5 0 0 0 16.5 13"/></svg>
+                    AI Explanation
+                </div>
+                <div id="ai-content" class="ai-content"></div>
+            </div>
+
+            <div class="controls">
+                <button class="btn btn-ai" onclick="fetchAIExplanation()">
+                    Ask AI
+                </button>
+                <button id="next-btn" class="btn btn-primary" onclick="nextQuestion()" disabled>
+                    Next Question
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="screen-result" class="screen">
+        <div class="result-card">
+            <h2>Quiz Complete!</h2>
+            <div class="score-big" id="final-score">0%</div>
+            <p id="final-msg"></p>
+            <button class="btn btn-primary" onclick="location.reload()" style="margin-top:20px; max-width:200px;">Back to Menu</button>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    // --- CONFIGURATION ---
+    const GROQ_API_KEY = "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";
+    const AI_MODEL = "llama-3.3-70b-versatile";
+
+    // --- DATABASE ---
+    const database = {
+        "ch1": [
+            { q: "Which of the following best differentiates Descriptive Statistics from Inferential Statistics?", options: ["Descriptive predicts future outcomes; Inferential summarizes past data.", "Descriptive summarizes data for a specific group; Inferential generalizes to a larger population.", "Descriptive uses only qualitative data; Inferential uses only quantitative data.", "Descriptive focuses on variance; Inferential focuses on central tendency."], correct: 1 },
+            { q: "A researcher classifies students based on 'Satisfaction Rating' (Dissatisfied, Neutral, Satisfied). Which level of measurement is this?", options: ["Nominal", "Ordinal", "Interval", "Ratio"], correct: 1 },
+            { q: "Which of the following is an example of Discrete Numerical Data?", options: ["Weight of an elephant", "Time to run 400m", "Number of phone calls made", "Temperature in a room"], correct: 2 },
+            { q: "A 'Zip Code' (e.g., 10200) is numerical in appearance. How is it classified statistically?", options: ["Quantitative - Discrete", "Quantitative - Continuous", "Qualitative - Nominal", "Qualitative - Ordinal"], correct: 2 },
+            { q: "In the Data Analysis Process, 'Cleaning Data' involves:", options: ["Deciding what will be measured", "Extracting and mining data", "Fixing quality issues and standardizing data", "Communicating findings"], correct: 2 },
+            { q: "Which type of analytics answers the question: 'Why did it happen?'", options: ["Descriptive Analytics", "Diagnostic Analytics", "Predictive Analytics", "Prescriptive Analytics"], correct: 1 },
+            { q: "A variable that can take any value in a given range (uncountable infinite) is:", options: ["Discrete", "Nominal", "Continuous", "Ordinal"], correct: 2 },
+            { q: "Why might the Median be preferred over the Mean in analyzing salary data?", options: ["Median uses every data point", "Mean is hard to calculate", "Median is not affected by outliers", "Mode is preferred"], correct: 2 },
+            { q: "If a distribution is perfectly Symmetric (Bell-Shaped), which is true?", options: ["Mean > Median > Mode", "Mode > Median > Mean", "Mean = Median = Mode", "Mean < Median"], correct: 2 },
+            { q: "Calculate the Mean of: {16, 17, 10, 13, 20, 18, 13, 14, 18}", options: ["15.00", "15.44", "16.50", "18.00"], correct: 1 },
+            { q: "For dataset {2, 4, 8, 8, 10}, the geometric mean formula is:", options: ["Sum divided by 5", "5th root of the product of values", "Average squared", "Product divided by 2"], correct: 1 },
+            { q: "Which measure of central tendency is valid for Categorical (Nominal) data?", options: ["Mean", "Median", "Mode", "Geometric Mean"], correct: 2 },
+            { q: "In a Negatively Skewed (Left Skewed) distribution, typically:", options: ["Mean > Median", "Mean < Median", "Mean = Median", "Mode is lowest"], correct: 1 },
+            { q: "What is the Mode of: {0, 1, 2, 3, 4, 5, 6}?", options: ["3", "3.5", "0", "No Mode"], correct: 3 },
+            { q: "When calculating Mean from a grouped frequency table, what represents the class?", options: ["Lower boundary", "Upper boundary", "Midpoint", "Cumulative frequency"], correct: 2 },
+            { q: "The Interquartile Range (IQR) represents:", options: ["Range of all data", "Spread of the middle 50%", "Standard deviation squared", "90th - 10th percentile"], correct: 1 },
+            { q: "To find the position of the Median in N observations, use formula:", options: ["N / 2", "(N + 1) / 2", "(N - 1) / 2", "N / 4"], correct: 1 },
+            { q: "If variance is 16, what is the Standard Deviation?", options: ["256", "8", "4", "32"], correct: 2 },
+            { q: "Which measure of dispersion is most affected by outliers?", options: ["IQR", "Range", "10th-90th Percentile", "Median"], correct: 1 },
+            { q: "What is the value of the Lower Quartile (Q1)?", options: ["50th percentile", "25th percentile", "75th percentile", "Most frequent value"], correct: 1 },
+            { q: "Calculate Variance for population: {3, 4, 6, 2, 8, 8, 5}. (Sum=36, SumSq=218, n=7)", options: ["2.17", "4.69", "5.14", "31.14"], correct: 1 },
+            { q: "Interpolation assumes data in a class is distributed:", options: ["Ideally at lower boundary", "Evenly (Uniformly)", "At the midpoint", "Randomly"], correct: 1 },
+            { q: "Which formula represents 'Sum of Squares' (Sxx)?", options: ["Sum(x - mean)", "Sum(x^2) - (Sum(x)^2)/n", "Sum(x^2) - Sum(x)^2", "(Sum x)^2 / n"], correct: 1 },
+            { q: "A box plot is most useful for visualizing:", options: ["Exact frequencies", "Relationship between variables", "Five-number summary (Min, Q1, Med, Q3, Max)", "Change over time"], correct: 2 },
+            { q: "If a dataset is Positively Skewed, the tail extends towards:", options: ["The left (lower values)", "The right (higher values)", "The center", "Both sides equally"], correct: 1 },
+            { q: "What does the 'Coefficient of Variation' measure?", options: ["Central location", "Shape", "Spread relative to the mean", "Correlation"], correct: 2 },
+            { q: "In continuous grouped data, how are gaps handled for boundaries?", options: ["Ignored", "Boundaries are halfway between gaps", "Use upper limit only", "Use lower limit only"], correct: 1 },
+            { q: "Which chart is best for 'Categorical' frequency data?", options: ["Histogram", "Bar Chart", "Scatter Plot", "Line Chart"], correct: 1 },
+            { q: "Prescriptive Analytics focuses on:", options: ["What happened?", "Why it happened?", "What will happen?", "What should be done?"], correct: 3 },
+            { q: "The sum of deviations from the mean (Sum(x - mean)) is always:", options: ["1", "Zero", "Positive", "Negative"], correct: 1 },
+            { q: "If Mean = 50 and Median = 40, the distribution is likely:", options: ["Symmetric", "Positively Skewed", "Negatively Skewed", "Uniform"], correct: 1 },
+            { q: "Which requires the data to be ranked (ordered)?", options: ["Mean", "Mode", "Median", "Variance"], correct: 2 },
+            { q: "Standard Deviation is preferred over Variance because:", options: ["It is easier to calculate", "It has the same units as the original data", "It is always smaller", "It ignores outliers"], correct: 1 },
+            { q: "For a sample size of n=100, the position of Q3 is roughly at:", options: ["25th item", "50th item", "75th item", "100th item"], correct: 2 },
+            { q: "Which is NOT a step in the standard Data Analysis Process?", options: ["Gathering data", "Cleaning data", "Fabricating data", "Interpreting results"], correct: 2 },
+            { q: "Discrete variables usually arise from:", options: ["Measuring", "Counting", "Estimating", "Calculus"], correct: 1 },
+            { q: "If you add 5 to every value in a dataset, what happens to the Standard Deviation?", options: ["Increases by 5", "Decreases by 5", "Stays the same", "Becomes 0"], correct: 2 },
+            { q: "If you multiply every value by 2, what happens to the Mean?", options: ["Stays the same", "Multiplies by 2", "Adds 2", "Squared"], correct: 1 },
+            { q: "A 'Parameter' describes a ____, while a 'Statistic' describes a ____.", options: ["Sample, Population", "Population, Sample", "Group, Individual", "Mean, Mode"], correct: 1 },
+            { q: "Which data type is 'Blood Type' (A, B, AB, O)?", options: ["Nominal", "Ordinal", "Discrete", "Continuous"], correct: 0 }
+        ],
+        "ch2": [
+            {
+                q: "Which type of data is best represented by a Histogram?",
+                options: ["Discrete data", "Grouped continuous data", "Nominal data", "Qualitative data"],
+                correct: 1,
+                ai: "Histograms are specifically designed to represent <strong>grouped continuous data</strong>, where the area of the bar is proportional to the frequency."
+            },
+            {
+                q: "In a histogram, what does the area of each bar represent?",
+                options: ["The class width", "The frequency density", "The frequency", "The cumulative frequency"],
+                correct: 2,
+                ai: "In a histogram, the <strong>area</strong> of the bar is proportional to the frequency in each class (Area = k × Frequency)."
+            },
+            {
+                q: "To calculate the height of a bar in a histogram (Frequency Density), which formula is used (assuming k=1)?",
+                options: ["Frequency × Class Width", "Frequency / Class Width", "Class Width / Frequency", "Frequency + Class Width"],
+                correct: 1,
+                ai: "Frequency Density is calculated as <strong>Frequency divided by Class Width</strong> ($FD = \\frac{f}{CW}$)."
+            },
+            {
+                q: "How is a Frequency Polygon formed from a histogram?",
+                options: ["By joining the top-left corners of each bar", "By joining the midpoints of the tops of each bar", "By joining the top-right corners of each bar", "By drawing a line of best fit"],
+                correct: 1,
+                ai: "A frequency polygon is formed by joining the <strong>middle of the top of each bar</strong> in a histogram."
+            },
+            {
+                q: "If a class has a frequency of 55 and a class width of 5, what is the Frequency Density?",
+                options: ["11", "275", "0.09", "50"],
+                correct: 0,
+                ai: "Frequency Density = Frequency / Width. $55 / 5 = 11$."
+            },
+            {
+                q: "What is an 'Outlier'?",
+                options: ["The average value", "The most frequent value", "An extreme value outside the overall pattern", "The middle value"],
+                correct: 2,
+                ai: "An outlier is defined as an <strong>extreme value</strong> that lies outside the overall pattern of the data."
+            },
+            {
+                q: "Using the Quartile method, a value is considered an outlier if it is greater than:",
+                options: ["Q3 + 1.5(IQR)", "Q3 + (IQR)", "Median + 2(SD)", "Q3 + 2(IQR)"],
+                correct: 0,
+                ai: "A common definition for an upper outlier is any value greater than $Q_3 + 1.5(Q_3 - Q_1)$."
+            },
+            {
+                q: "Using the Quartile method, a value is considered an outlier if it is less than:",
+                options: ["Q1 - 1.5(IQR)", "Q1 - (IQR)", "Mean - 2(SD)", "Q1 - 0.5(IQR)"],
+                correct: 0,
+                ai: "A common definition for a lower outlier is any value less than $Q_1 - 1.5(Q_3 - Q_1)$."
+            },
+            {
+                q: "Using the Standard Deviation method (as per the notes), an outlier is an observation lying outside:",
+                options: ["Mean ± 1 SD", "Mean ± 2 SD", "Mean ± 3 SD", "Median ± 1.5 SD"],
+                correct: 1,
+                ai: "The notes state an outlier is an observation which lies <strong>± 2 standard deviations</strong> from the mean."
+            },
+            {
+                q: "What five values are required to draw a Box Plot?",
+                options: ["Mean, Median, Mode, Range, SD", "Min, Q1, Median, Q3, Max", "Min, Max, Mean, Variance, n", "Q1, Q2, Q3, Q4, Q5"],
+                correct: 1,
+                ai: "A box plot represents the <strong>Min, Lower Quartile (Q1), Median, Upper Quartile (Q3), and Max</strong>."
+            },
+            {
+                q: "In a box plot, the 'box' itself represents which statistic?",
+                options: ["The Range", "The Standard Deviation", "The Interquartile Range (IQR)", "The Variance"],
+                correct: 2,
+                ai: "The box spans from Q1 to Q3, representing the <strong>Interquartile Range (IQR)</strong>."
+            },
+            {
+                q: "If a histogram has unequal class intervals, you must use:",
+                options: ["Frequency on the y-axis", "Frequency Density on the y-axis", "Cumulative Frequency", "Bar Charts"],
+                correct: 1,
+                ai: "Histograms can be used for unequal intervals, but you must plot <strong>Frequency Density</strong> on the y-axis, not raw frequency."
+            },
+            {
+                q: "Calculate the class width for the interval '25 ≤ t < 30'.",
+                options: ["4", "5", "6", "27.5"],
+                correct: 1,
+                ai: "Class width = Upper Boundary - Lower Boundary. $30 - 25 = 5$."
+            },
+            {
+                q: "If Mean = 21 and SD = 3.83, what is the upper boundary for outliers (Mean + 2SD)?",
+                options: ["24.83", "28.66", "13.34", "32.00"],
+                correct: 1,
+                ai: "$21 + 2(3.83) = 21 + 7.66 = 28.66$."
+            },
+            {
+                q: "What does the line inside the box of a Box Plot represent?",
+                options: ["The Mean", "The Mode", "The Median", "The Range"],
+                correct: 2,
+                ai: "The line drawn inside the rectangular box represents the <strong>Median</strong> (Q2)."
+            },
+            {
+                q: "If a histogram bar has a height of 3.2 and a width of 10, what is the frequency?",
+                options: ["3.2", "13.2", "32", "0.32"],
+                correct: 2,
+                ai: "Area = Frequency. $Height \\times Width = 3.2 \\times 10 = 32$."
+            },
+            {
+                q: "When comparing two box plots, a higher median indicates:",
+                options: ["Greater spread of data", "Higher average value", "More outliers", "Positive skew"],
+                correct: 1,
+                ai: "A higher median generally indicates a <strong>higher average</strong> value for that group."
+            },
+            {
+                q: "When comparing two box plots, a longer box (larger IQR) indicates:",
+                options: ["Higher values", "Greater consistency", "Greater variability/spread", "Symmetric distribution"],
+                correct: 2,
+                ai: "A larger IQR (longer box) indicates that the middle 50% of the data is more spread out, meaning <strong>greater variability</strong>."
+            },
+            {
+                q: "In the context of the turtle example, if male turtles have a wider total range than females, it means:",
+                options: ["Males are heavier on average", "Males are lighter on average", "Males have more variable masses", "Females have more outliers"],
+                correct: 2,
+                ai: "A wider range indicates that the difference between the lightest and heaviest turtle is larger, implying <strong>more variable masses</strong>."
+            },
+            {
+                q: "What symbol is typically used to mark an outlier on a box plot?",
+                options: ["A circle or cross", "A solid bar", "A wavy line", "A triangle"],
+                correct: 0,
+                ai: "Outliers are typically marked with a <strong>cross (x)</strong> or a dot outside the whiskers."
+            },
+            {
+                q: "If Q1 = 32 and Q3 = 47, what is the IQR?",
+                options: ["79", "15", "39.5", "64"],
+                correct: 1,
+                ai: "$IQR = Q3 - Q1$. $47 - 32 = 15$."
+            },
+            {
+                q: "If 25 small squares in a histogram represent 5 people, what does 1 small square represent?",
+                options: ["1 person", "0.2 people", "5 people", "0.5 people"],
+                correct: 1,
+                ai: "$5 \\text{ people} / 25 \\text{ squares} = 1/5 = 0.2$ people per square."
+            },
+            {
+                q: "If a histogram shows a 'tail' extending to the right, the data is:",
+                options: ["Symmetric", "Positively Skewed", "Negatively Skewed", "Uniform"],
+                correct: 1,
+                ai: "A tail extending to the right (higher values) indicates <strong>Positive Skewness</strong>."
+            },
+            {
+                q: "For the interval '50 ≤ t < 80' with Frequency=6, what is the Frequency Density?",
+                options: ["0.2", "5", "30", "6"],
+                correct: 0,
+                ai: "Width = $80-50=30$. Density = $6 / 30 = 0.2$."
+            },
+            {
+                q: "Which chart is basically a line graph joining histogram midpoints?",
+                options: ["Bar chart", "Pie chart", "Frequency Polygon", "Scatter plot"],
+                correct: 2,
+                ai: "A <strong>Frequency Polygon</strong> is created by joining the midpoints of the tops of histogram bars."
+            },
+            {
+                q: "If a box plot whisker extends very far to the left, the data likely has:",
+                options: ["Positive Skew", "Negative Skew", "No Skew", "High Median"],
+                correct: 1,
+                ai: "A long whisker to the left (lower values) suggests <strong>Negative Skew</strong> (tail to the left)."
+            },
+            {
+                q: "Why is k=1 'the easiest value to use' for histogram area calculations?",
+                options: ["It makes Area = Frequency", "It makes Frequency = Class Width", "It makes Height = Frequency", "It removes the y-axis"],
+                correct: 0,
+                ai: "If k=1, the Area of the bar ($Width \\times Height$) is exactly equal to the <strong>Frequency</strong>."
+            },
+            {
+                q: "What defines the 'Whiskers' in a box plot?",
+                options: ["From Min to Max (excluding outliers)", "From Q1 to Q3", "From Mean to Median", "From 0 to Max"],
+                correct: 0,
+                ai: "Whiskers extend from the quartiles to the <strong>lowest/highest values that are not outliers</strong>."
+            },
+            {
+                q: "Given Q1=10, Q3=20, IQR=10. Is the value 36 an outlier?",
+                options: ["No", "Yes", "Cannot determine", "Only if it's negative"],
+                correct: 1,
+                ai: "Upper limit = $Q3 + 1.5(IQR) = 20 + 1.5(10) = 35$. Since $36 > 35$, it is <strong>Yes</strong>, an outlier."
+            },
+            {
+                q: "In the puzzle example (Page 11), why was a histogram used?",
+                options: ["Because time is continuous data", "Because time is discrete", "Because there were gaps in data", "Because it looks better"],
+                correct: 0,
+                ai: "Histograms are used because <strong>Time is continuous</strong> data."
+            },
+            {
+                q: "If a dataset has variance = 14.67, what is the Standard Deviation?",
+                options: ["14.67", "215.2", "3.83", "7.33"],
+                correct: 2,
+                ai: "Standard Deviation = $\\sqrt{Variance} = \\sqrt{14.67} \\approx 3.83$."
+            },
+            {
+                q: "To estimate frequency between specific values (e.g., 36 to 45) in a histogram, you calculate:",
+                options: ["The area of the bars between those x-values", "The average height", "The total width", "The number of bars"],
+                correct: 0,
+                ai: "You find the <strong>area</strong> of the bars (or partial bars) that fall between the specific x-values."
+            },
+            {
+                q: "Which visualization allows you to easily see the 'Median'?",
+                options: ["Histogram", "Frequency Polygon", "Box Plot", "Scatter Plot"],
+                correct: 2,
+                ai: "The <strong>Box Plot</strong> explicitly marks the Median as a line inside the box."
+            },
+            {
+                q: "If Q1=300, Q3=400 for Male turtles, and Q1=250, Q3=350 for Females, who has the higher IQR?",
+                options: ["Males", "Females", "They are equal", "Cannot tell"],
+                correct: 2,
+                ai: "Male IQR = 400-300=100. Female IQR = 350-250=100. They are <strong>equal</strong>."
+            },
+            {
+                q: "What is the primary difference between a Bar Chart and a Histogram?",
+                options: ["Bar charts have gaps; Histograms do not (for continuous data)", "Bar charts are for numbers; Histograms for words", "They are the same", "Histograms are always vertical"],
+                correct: 0,
+                ai: "Histograms represent continuous data and usually have <strong>no gaps</strong> between bars, whereas bar charts (categorical) have gaps."
+            },
+            {
+                q: "If the frequency of a class is 10 and the frequency density is 2, what is the class width?",
+                options: ["20", "5", "8", "12"],
+                correct: 1,
+                ai: "$Density = Freq / Width$, so $Width = Freq / Density$. $10 / 2 = 5$."
+            },
+            {
+                q: "The 'Range' in a box plot calculation (Page 16) is defined as:",
+                options: ["Max (outlier or not) - Min (outlier or not)", "Upper Whisker - Lower Whisker", "Q3 - Q1", "Mean - Mode"],
+                correct: 0,
+                ai: "The Range generally refers to the difference between the absolute highest and absolute lowest values (including outliers if present)."
+            },
+            {
+                q: "In the giant snail example, why was 32cm considered an outlier?",
+                options: ["It was > Q3 + 1.5IQR", "It was > Mean + 2SD", "It was > Mean + 3SD", "It was simply too big"],
+                correct: 1,
+                ai: "Using the example's method: Mean (21) + 2*SD (7.66) = 28.66. Since 32 > 28.66, it is an outlier."
+            },
+            {
+                q: "Frequency Density allows us to compare classes that have:",
+                options: ["Different class widths", "Different colors", "Different data types", "Missing values"],
+                correct: 0,
+                ai: "Frequency Density standardizes the bars so we can compare data even if the <strong>class widths are unequal</strong>."
+            },
+            {
+                q: "If a box plot is symmetrical with the median in the exact center of the box, the data is:",
+                options: ["Skewed Left", "Skewed Right", "Normally Distributed (Symmetric)", "Bimodal"],
+                correct: 2,
+                ai: "Symmetry in the box plot (whiskers equal length, median in center) suggests a <strong>Symmetric (Normal)</strong> distribution."
+            }
+        ],
+        "ch3": [
+            {
+                q: "What is the key difference between a Permutation and a Combination?",
+                options: ["In Permutations, order matters; in Combinations, order does not matter.", "In Combinations, order matters; in Permutations, order does not matter.", "Permutations are for infinite sets; Combinations are for finite sets.", "There is no difference."],
+                correct: 0,
+                ai: "<strong>Permutation</strong> is an arrangement where order is important (e.g., 1st, 2nd, 3rd place). <strong>Combination</strong> is a selection where order is not important (e.g., picking 3 friends)."
+            },
+            {
+                q: "Which formula represents the number of Permutations (${}_nP_r$)?",
+                options: ["n! / (n-r)!", "n! / (r! (n-r)!)", "n! * r!", "(n-r)! / n!"],
+                correct: 0,
+                ai: "The formula for permutations is <strong>${}_nP_r = \\frac{n!}{(n-r)!}$</strong>."
+            },
+            {
+                q: "What is the value of 0! (Zero Factorial)?",
+                options: ["0", "1", "Undefined", "Infinity"],
+                correct: 1,
+                ai: "As a special mathematical definition, <strong>$0! = 1$</strong>."
+            },
+            {
+                q: "If you need to select 3 winners (Gold, Silver, Bronze) from 43 race cars, which method do you use?",
+                options: ["Combination (${}_{43}C_3$)", "Permutation (${}_{43}P_3$)", "Factorial (43!)", "Addition rule"],
+                correct: 1,
+                ai: "Since the <strong>order matters</strong> (Gold is different from Silver), this is a <strong>Permutation</strong> problem."
+            },
+            {
+                q: "If you need to hire 4 companies out of 16 bidding companies (where all 4 are equal), which method do you use?",
+                options: ["Permutation", "Combination", "Geometric Mean", "Random assignment"],
+                correct: 1,
+                ai: "Since the <strong>order does not matter</strong> (being hired is the same for all 4), this is a <strong>Combination</strong>."
+            },
+            {
+                q: "In an Experiment (vs. Observational Study), the investigator:",
+                options: ["Merely observes what happens naturally.", "Assigns treatments to experimental units.", "Calculates the mean only.", "Does not interfere with subjects."],
+                correct: 1,
+                ai: "In an <strong>experiment</strong>, investigators actively <strong>apply treatments</strong> (e.g., assigning a Yoga class) to observe effects."
+            },
+            {
+                q: "The set of all possible outcomes of a random phenomenon is called the:",
+                options: ["Sample Space", "Event Horizon", "Probability Model", "Null Set"],
+                correct: 0,
+                ai: "The <strong>Sample Space</strong> is the list or set of all possible outcomes (e.g., {Heads, Tails} for a coin)."
+            },
+            {
+                q: "The probability of an event is always a number between:",
+                options: ["-1 and 1", "0 and 100", "0 and 1", "1 and 10"],
+                correct: 2,
+                ai: "Probability ranges from <strong>0 (impossible) to 1 (certain)</strong>."
+            },
+            {
+                q: "The intersection of two events A and B ($A \\cap B$) represents:",
+                options: ["Outcomes in A or B", "Outcomes in A but not B", "Outcomes in both A and B", "Outcomes not in A"],
+                correct: 2,
+                ai: "The intersection ($A \\cap B$) consists of outcomes that are in <strong>BOTH</strong> event A AND event B."
+            },
+            {
+                q: "If two events have NO outcomes in common, they are called:",
+                options: ["Independent", "Mutually Exclusive (Disjoint)", "Complements", "Dependent"],
+                correct: 1,
+                ai: "<strong>Mutually Exclusive</strong> (or disjoint) events cannot happen at the same time; their intersection is the empty set ($\\emptyset$)."
+            },
+            {
+                q: "What is the formula for the Probability of the Complement ($P(A')$)?",
+                options: ["1 + P(A)", "1 - P(A)", "P(A) - 1", "P(A) / 2"],
+                correct: 1,
+                ai: "The probability that event A does <strong>not</strong> occur is <strong>$1 - P(A)$</strong>."
+            },
+            {
+                q: "Which rule applies if events A and B are Independent?",
+                options: ["P(A and B) = P(A) + P(B)", "P(A and B) = P(A) * P(B)", "P(A|B) = P(B)", "P(A or B) = 0"],
+                correct: 1,
+                ai: "For <strong>independent</strong> events, the probability of both happening is the <strong>product</strong> of their individual probabilities."
+            },
+            {
+                q: "The General Addition Rule for any two events A and B is:",
+                options: ["P(A U B) = P(A) + P(B)", "P(A U B) = P(A) + P(B) - P(A n B)", "P(A U B) = P(A) * P(B)", "P(A U B) = P(A) - P(B)"],
+                correct: 1,
+                ai: "To find P(A or B), you add the probabilities but must <strong>subtract the intersection</strong> $P(A \\cap B)$ to avoid double-counting."
+            },
+            {
+                q: "Conditional Probability $P(B|A)$ is read as:",
+                options: ["Probability of B minus A", "Probability of B or A", "Probability of B given that A has occurred", "Probability of A given B"],
+                correct: 2,
+                ai: "The notation $P(B|A)$ means the probability of <strong>B given A</strong>."
+            },
+            {
+                q: "Two events A and B are Independent if:",
+                options: ["P(B|A) = P(B)", "P(A n B) = 0", "P(A) + P(B) = 1", "They cannot happen together"],
+                correct: 0,
+                ai: "Events are <strong>independent</strong> if knowing A happened does <strong>not change</strong> the probability of B ($P(B|A) = P(B)$)."
+            },
+            {
+                q: "In a tree diagram, the sum of probabilities on branches originating from the same node must equal:",
+                options: ["0.5", "100", "1", "Unknown"],
+                correct: 2,
+                ai: "All possible branches from a single point cover the entire sample space for that stage, so they must sum to <strong>1</strong>."
+            },
+            {
+                q: "Bayes' Theorem is primarily used to:",
+                options: ["Calculate simple averages.", "Find the median of a dataset.", "Find a conditional probability $P(A|B)$ using the reverse probability $P(B|A)$.", "Plot data."],
+                correct: 2,
+                ai: "<strong>Bayes' Theorem</strong> allows us to reverse the condition, finding $P(A|B)$ when we know $P(B|A)$ and the prior probabilities."
+            },
+            {
+                q: "If tossing a coin and rolling a die, how many total outcomes are in the sample space?",
+                options: ["2 + 6 = 8", "2 * 6 = 12", "6 - 2 = 4", "36"],
+                correct: 1,
+                ai: "There are 2 outcomes for the coin and 6 for the die. Total outcomes = $2 \\times 6 = 12$."
+            },
+            {
+                q: "If A and B are Mutually Exclusive, then $P(A \\cap B)$ equals:",
+                options: ["1", "0", "0.5", "P(A)*P(B)"],
+                correct: 1,
+                ai: "Mutually exclusive events cannot happen at the same time, so the probability of their intersection is <strong>0</strong>."
+            },
+            {
+                q: "What is the formula for ${}_nC_r$?",
+                options: ["n! / (n-r)!", "n! / (r!(n-r)!)", "r! / n!", "n! * r!"],
+                correct: 1,
+                ai: "Combinations divide out the rearrangements of the selected items ($r!$) because order doesn't matter: <strong>$\\frac{n!}{r!(n-r)!}$</strong>."
+            },
+            {
+                q: "A randomized experiment controls the assignment of treatments using:",
+                options: ["Personal preference", "A chance mechanism", "Alphabetical order", "Age"],
+                correct: 1,
+                ai: "Randomized experiments use a <strong>chance mechanism</strong> (like a coin flip or RNG) to assign treatments to remove bias."
+            },
+            {
+                q: "In the context of probability, 'Union' ($A \\cup B$) corresponds to the logical operator:",
+                options: ["AND", "OR", "NOT", "XOR"],
+                correct: 1,
+                ai: "The Union ($A \\cup B$) contains elements in A, B, or both, corresponding to the logical <strong>OR</strong>."
+            },
+            {
+                q: "Which diagram is commonly used to visualize intersections and unions of sets?",
+                options: ["Histogram", "Scatter Plot", "Venn Diagram", "Box Plot"],
+                correct: 2,
+                ai: "<strong>Venn Diagrams</strong> use overlapping circles to visually represent the relationships (unions, intersections) between sets."
+            },
+            {
+                q: "If P(Rain) = 0.3, what is P(No Rain)?",
+                options: ["0.3", "0.5", "0.7", "1.0"],
+                correct: 2,
+                ai: "Complement rule: $1 - 0.3 = 0.7$."
+            },
+            {
+                q: "In the CEO example (Bayes' Theorem), what did P(B|A) represent?",
+                options: ["Prob of CEO replacement given stock increased", "Prob of stock increase given CEO replacement", "Prob of stock increase", "Prob of no replacement"],
+                correct: 0,
+                ai: "In the text's notation, P(B|A) was the probability of <strong>CEO replacement (B)</strong> given the <strong>stock increased (A)</strong>."
+            },
+            {
+                q: "If you roll a fair 6-sided die, what is P(Rolling a 3)?",
+                options: ["1/2", "1/6", "1/3", "3/6"],
+                correct: 1,
+                ai: "There is one '3' on a 6-sided die. Probability = <strong>1/6</strong>."
+            },
+            {
+                q: "Two events are 'Dependent' if:",
+                options: ["P(A|B) = P(A)", "The outcome of one affects the probability of the other.", "They are mutually exclusive.", "P(A) = P(B)"],
+                correct: 1,
+                ai: "Dependence means the occurrence of one event <strong>changes the likelihood</strong> of the other occurring."
+            },
+            {
+                q: "Calculate ${}_4C_2$ (Choosing 2 items from 4).",
+                options: ["2", "4", "6", "12"],
+                correct: 2,
+                ai: "$\\frac{4!}{2!(4-2)!} = \\frac{24}{2 \\times 2} = 6$."
+            },
+            {
+                q: "In a medical test context, a 'False Positive' usually refers to:",
+                options: ["Testing positive when you DO have the disease", "Testing negative when you DO have the disease", "Testing positive when you do NOT have the disease", "Testing negative when you do NOT have the disease"],
+                correct: 2,
+                ai: "A false positive is an error where the test says 'Yes' (Positive) but the truth is 'No' (Healthy)."
+            },
+            {
+                q: "If P(A) = 0.6, P(B) = 0.4, and A & B are Independent, what is P(A and B)?",
+                options: ["1.0", "0.24", "0.2", "0.6"],
+                correct: 1,
+                ai: "Since they are independent: $0.6 \\times 0.4 = 0.24$."
+            },
+            {
+                q: "A sample space is denoted by which symbol in Venn diagrams?",
+                options: ["S or $\\xi$ (Greek Xi) or $\\Omega$", "X", "Y", "Q"],
+                correct: 0,
+                ai: "The rectangle surrounding the circles in a Venn diagram represents the universal sample space, often denoted by $\\xi$ or S."
+            },
+            {
+                q: "In the Yoga example, the group NOT doing Yoga is called the:",
+                options: ["Experimental group", "Control group", "Variable group", "Outlier group"],
+                correct: 1,
+                ai: "The group that does not receive the treatment (Yoga) serves as a baseline and is called the <strong>Control group</strong>."
+            },
+            {
+                q: "How many ways can 3 passengers sit in 7 empty seats (Order matters)?",
+                options: ["210", "35", "21", "7"],
+                correct: 0,
+                ai: "This is a permutation ${}_7P_3$. $7 \\times 6 \\times 5 = 210$."
+            },
+            {
+                q: "If P(A) = 0.2, P(B) = 0.4, and they are Mutually Exclusive, what is P(A or B)?",
+                options: ["0.6", "0.08", "0.2", "0.8"],
+                correct: 0,
+                ai: "For mutually exclusive events, just add them: $0.2 + 0.4 = 0.6$."
+            },
+            {
+                q: "Which of the following is an example of a Random Phenomenon?",
+                options: ["The sun rising in the East", "Tossing a fair coin", "Calculating 2+2", "Freezing water at 0°C"],
+                correct: 1,
+                ai: "Tossing a coin is random because the individual outcome is uncertain, though the long-term pattern is predictable."
+            },
+            {
+                q: "The multiplication rule for Dependent events is:",
+                options: ["P(A and B) = P(A) * P(B)", "P(A and B) = P(A) * P(B|A)", "P(A and B) = P(A) + P(B)", "P(A and B) = P(A|B) * P(B|A)"],
+                correct: 1,
+                ai: "If events are dependent, you must multiply the probability of A by the probability of B <strong>given that A happened</strong>."
+            },
+            {
+                q: "If P(A) = 0.5, P(B) = 0.3, and P(A U B) = 0.7, find P(A n B).",
+                options: ["0.1", "0.2", "0.15", "0.8"],
+                correct: 0,
+                ai: "Using $P(A \\cup B) = P(A) + P(B) - P(A \\cap B)$: $0.7 = 0.5 + 0.3 - X$. $X = 0.1$."
+            },
+            {
+                q: "In the 'Match' example for medical residency, P(A)=0.93 and P(B|A)=0.82. What is P(A and B)?",
+                options: ["0.763", "0.11", "1.75", "0.82"],
+                correct: 0,
+                ai: "$0.93 \\times 0.82 \\approx 0.763$."
+            },
+            {
+                q: "Why are 'Weather' events often Dependent?",
+                options: ["They are random.", "Weather moves in systems; rain today increases chance of rain tomorrow.", "Weather is mutually exclusive.", "They sum to 1."],
+                correct: 1,
+                ai: "Weather events are usually <strong>dependent</strong> because the current state (raining) physically influences the next state."
+            },
+            {
+                q: "What is the Total Probability of the sample space?",
+                options: ["0", "0.5", "1", "100"],
+                correct: 2,
+                ai: "The sum of probabilities of all possible distinct outcomes in a sample space must equal <strong>1</strong>."
+            }
+        ]
+    };
+
+    // --- STATE & UTILS ---
+    let currentChapter = [];
+    let currentIndex = 0;
+    let score = 0;
+    let aiCache = {}; // Cache AI responses per session
+
+    // --- DOM REFERENCES ---
+    const ui = {
+        screens: { menu: document.getElementById('screen-menu'), quiz: document.getElementById('screen-quiz'), result: document.getElementById('screen-result') },
+        text: document.getElementById('question-text'),
+        options: document.getElementById('options-container'),
+        progress: document.getElementById('quiz-progress'),
+        aiBox: document.getElementById('ai-container'),
+        aiContent: document.getElementById('ai-content'),
+        nextBtn: document.getElementById('next-btn'),
+        scoreDisplay: document.getElementById('final-score'),
+        msgDisplay: document.getElementById('final-msg')
+    };
+
+    // --- APP LOGIC ---
+    function startChapter(ch) {
+        if(!database[ch] || database[ch].length === 0) return alert("Chapter coming soon!");
+        currentChapter = database[ch];
+        currentIndex = 0;
+        score = 0;
+        aiCache = {};
+        
+        // Shuffle questions
+        currentChapter.sort(() => Math.random() - 0.5);
+        
+        showScreen('quiz');
+        renderQuestion();
+    }
+
+    function renderQuestion() {
+        const q = currentChapter[currentIndex];
+        ui.text.innerText = `${currentIndex + 1}. ${q.q}`;
+        ui.progress.innerText = `Question ${currentIndex + 1}/${currentChapter.length}`;
+        ui.options.innerHTML = '';
+        ui.aiBox.classList.remove('show');
+        ui.aiContent.innerHTML = '';
+        ui.nextBtn.disabled = true;
+
+        q.options.forEach((opt, idx) => {
+            const btn = document.createElement('button');
+            btn.className = 'option';
+            btn.innerText = opt;
+            btn.onclick = () => handleAnswer(idx, btn);
+            ui.options.appendChild(btn);
+        });
+    }
+
+    function handleAnswer(selectedIdx, btn) {
+        // Disable all buttons
+        Array.from(ui.options.children).forEach(b => b.disabled = true);
+        
+        const q = currentChapter[currentIndex];
+        const correctIdx = q.correct;
+        
+        if(selectedIdx === correctIdx) {
+            btn.classList.add('correct');
+            score++;
+        } else {
+            btn.classList.add('incorrect');
+            ui.options.children[correctIdx].classList.add('correct');
+            // Auto fetch AI for wrong answers
+            fetchAIExplanation();
+        }
+        ui.nextBtn.disabled = false;
+    }
+
+    async function fetchAIExplanation() {
+        const q = currentChapter[currentIndex];
+        const cacheKey = currentIndex;
+
+        ui.aiBox.classList.add('show');
+        
+        // Return cached if exists
+        if(aiCache[cacheKey]) {
+            ui.aiContent.innerHTML = aiCache[cacheKey];
+            return;
+        }
+
+        // Loading State
+        ui.aiContent.innerHTML = `
+            <div class="loader">
+                <div class="spinner"></div>
+                <span>Analyzing with ${AI_MODEL}...</span>
+            </div>
+        `;
+
+        // Prepare Prompt
+        const prompt = `
+            Question: "${q.q}"
+            Options: ${q.options.join(', ')}
+            Correct Answer: "${q.options[q.correct]}"
+            
+            Task: Explain briefly and clearly why the correct answer is correct and why the others might be wrong. Keep it under 3 sentences. Use Markdown for bolding key terms.
+        `;
+
+        try {
+            const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+                method: "POST",
+                headers: {
+                    "Authorization": `Bearer ${GROQ_API_KEY}`,
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    messages: [{ role: "user", content: prompt }],
+                    model: AI_MODEL,
+                    temperature: 0.5,
+                    max_tokens: 150
+                })
+            });
+
+            const data = await response.json();
+            
+            if(data.error) throw new Error(data.error.message);
+
+            const aiText = parseMarkdown(data.choices[0].message.content);
+            aiCache[cacheKey] = aiText;
+            ui.aiContent.innerHTML = aiText;
+
+        } catch (err) {
+            ui.aiContent.innerHTML = `<span style="color:red">Error: ${err.message}. Please check your API Key.</span>`;
+        }
+    }
+
+    function nextQuestion() {
+        if(currentIndex < currentChapter.length - 1) {
+            currentIndex++;
+            renderQuestion();
+        } else {
+            showResult();
+        }
+    }
+
+    function showResult() {
+        showScreen('result');
+        const pct = Math.round((score / currentChapter.length) * 100);
+        ui.scoreDisplay.innerText = `${pct}%`;
+        ui.msgDisplay.innerText = pct >= 80 ? "Excellent mastery of Statistics!" : "Good effort! Keep reviewing.";
+    }
+
+    function showScreen(name) {
+        Object.values(ui.screens).forEach(s => s.classList.remove('active'));
+        ui.screens[name].classList.add('active');
+    }
+
+    // Simple Markdown Parser for AI text (Bold & Newlines)
+    function parseMarkdown(text) {
+        let html = text
+            .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') // Bold
+            .replace(/\n/g, '<br>'); // Newlines
+        return html;
+    }
+
+</script>
+</body>
+</html>
