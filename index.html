@@ -3,17 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <title>Statistics Master Quiz (Chapters 1-3)</title>
+    
     <script>
-        window.MathJax = {
-          tex: {
-            inlineMath: [['$', '$'], ['\\(', '\\)']]
-  }
-};
-</script>
-<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <title>Statistics Advanced Quiz (Groq AI Powered)</title>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
     <style>
         :root {
             --primary: #2563eb;
@@ -144,7 +144,6 @@
                     <span>Chapter 2: Visualization</span>
                     <span style="background:#f1f5f9; padding:4px 10px; border-radius:20px; font-size:0.8rem;">40 Qs</span>
                 </button>
-
                 <button class="chapter-btn" onclick="startChapter('ch3')">
                     <span>Chapter 3: Probability</span>
                     <span style="background:#f1f5f9; padding:4px 10px; border-radius:20px; font-size:0.8rem;">40 Qs</span>
@@ -243,246 +242,46 @@
             { q: "Which data type is 'Blood Type' (A, B, AB, O)?", options: ["Nominal", "Ordinal", "Discrete", "Continuous"], correct: 0 }
         ],
         "ch2": [
-            {
-                q: "Which type of data is best represented by a Histogram?",
-                options: ["Discrete data", "Grouped continuous data", "Nominal data", "Qualitative data"],
-                correct: 1,
-                ai: "Histograms are specifically designed to represent <strong>grouped continuous data</strong>, where the area of the bar is proportional to the frequency."
-            },
-            {
-                q: "In a histogram, what does the area of each bar represent?",
-                options: ["The class width", "The frequency density", "The frequency", "The cumulative frequency"],
-                correct: 2,
-                ai: "In a histogram, the <strong>area</strong> of the bar is proportional to the frequency in each class (Area = k × Frequency)."
-            },
-            {
-                q: "To calculate the height of a bar in a histogram (Frequency Density), which formula is used (assuming k=1)?",
-                options: ["Frequency × Class Width", "Frequency / Class Width", "Class Width / Frequency", "Frequency + Class Width"],
-                correct: 1,
-                ai: "Frequency Density is calculated as <strong>Frequency divided by Class Width</strong> ($FD = \\frac{f}{CW}$)."
-            },
-            {
-                q: "How is a Frequency Polygon formed from a histogram?",
-                options: ["By joining the top-left corners of each bar", "By joining the midpoints of the tops of each bar", "By joining the top-right corners of each bar", "By drawing a line of best fit"],
-                correct: 1,
-                ai: "A frequency polygon is formed by joining the <strong>middle of the top of each bar</strong> in a histogram."
-            },
-            {
-                q: "If a class has a frequency of 55 and a class width of 5, what is the Frequency Density?",
-                options: ["11", "275", "0.09", "50"],
-                correct: 0,
-                ai: "Frequency Density = Frequency / Width. $55 / 5 = 11$."
-            },
-            {
-                q: "What is an 'Outlier'?",
-                options: ["The average value", "The most frequent value", "An extreme value outside the overall pattern", "The middle value"],
-                correct: 2,
-                ai: "An outlier is defined as an <strong>extreme value</strong> that lies outside the overall pattern of the data."
-            },
-            {
-                q: "Using the Quartile method, a value is considered an outlier if it is greater than:",
-                options: ["Q3 + 1.5(IQR)", "Q3 + (IQR)", "Median + 2(SD)", "Q3 + 2(IQR)"],
-                correct: 0,
-                ai: "A common definition for an upper outlier is any value greater than $Q_3 + 1.5(Q_3 - Q_1)$."
-            },
-            {
-                q: "Using the Quartile method, a value is considered an outlier if it is less than:",
-                options: ["Q1 - 1.5(IQR)", "Q1 - (IQR)", "Mean - 2(SD)", "Q1 - 0.5(IQR)"],
-                correct: 0,
-                ai: "A common definition for a lower outlier is any value less than $Q_1 - 1.5(Q_3 - Q_1)$."
-            },
-            {
-                q: "Using the Standard Deviation method (as per the notes), an outlier is an observation lying outside:",
-                options: ["Mean ± 1 SD", "Mean ± 2 SD", "Mean ± 3 SD", "Median ± 1.5 SD"],
-                correct: 1,
-                ai: "The notes state an outlier is an observation which lies <strong>± 2 standard deviations</strong> from the mean."
-            },
-            {
-                q: "What five values are required to draw a Box Plot?",
-                options: ["Mean, Median, Mode, Range, SD", "Min, Q1, Median, Q3, Max", "Min, Max, Mean, Variance, n", "Q1, Q2, Q3, Q4, Q5"],
-                correct: 1,
-                ai: "A box plot represents the <strong>Min, Lower Quartile (Q1), Median, Upper Quartile (Q3), and Max</strong>."
-            },
-            {
-                q: "In a box plot, the 'box' itself represents which statistic?",
-                options: ["The Range", "The Standard Deviation", "The Interquartile Range (IQR)", "The Variance"],
-                correct: 2,
-                ai: "The box spans from Q1 to Q3, representing the <strong>Interquartile Range (IQR)</strong>."
-            },
-            {
-                q: "If a histogram has unequal class intervals, you must use:",
-                options: ["Frequency on the y-axis", "Frequency Density on the y-axis", "Cumulative Frequency", "Bar Charts"],
-                correct: 1,
-                ai: "Histograms can be used for unequal intervals, but you must plot <strong>Frequency Density</strong> on the y-axis, not raw frequency."
-            },
-            {
-                q: "Calculate the class width for the interval '25 ≤ t < 30'.",
-                options: ["4", "5", "6", "27.5"],
-                correct: 1,
-                ai: "Class width = Upper Boundary - Lower Boundary. $30 - 25 = 5$."
-            },
-            {
-                q: "If Mean = 21 and SD = 3.83, what is the upper boundary for outliers (Mean + 2SD)?",
-                options: ["24.83", "28.66", "13.34", "32.00"],
-                correct: 1,
-                ai: "$21 + 2(3.83) = 21 + 7.66 = 28.66$."
-            },
-            {
-                q: "What does the line inside the box of a Box Plot represent?",
-                options: ["The Mean", "The Mode", "The Median", "The Range"],
-                correct: 2,
-                ai: "The line drawn inside the rectangular box represents the <strong>Median</strong> (Q2)."
-            },
-            {
-                q: "If a histogram bar has a height of 3.2 and a width of 10, what is the frequency?",
-                options: ["3.2", "13.2", "32", "0.32"],
-                correct: 2,
-                ai: "Area = Frequency. $Height \\times Width = 3.2 \\times 10 = 32$."
-            },
-            {
-                q: "When comparing two box plots, a higher median indicates:",
-                options: ["Greater spread of data", "Higher average value", "More outliers", "Positive skew"],
-                correct: 1,
-                ai: "A higher median generally indicates a <strong>higher average</strong> value for that group."
-            },
-            {
-                q: "When comparing two box plots, a longer box (larger IQR) indicates:",
-                options: ["Higher values", "Greater consistency", "Greater variability/spread", "Symmetric distribution"],
-                correct: 2,
-                ai: "A larger IQR (longer box) indicates that the middle 50% of the data is more spread out, meaning <strong>greater variability</strong>."
-            },
-            {
-                q: "In the context of the turtle example, if male turtles have a wider total range than females, it means:",
-                options: ["Males are heavier on average", "Males are lighter on average", "Males have more variable masses", "Females have more outliers"],
-                correct: 2,
-                ai: "A wider range indicates that the difference between the lightest and heaviest turtle is larger, implying <strong>more variable masses</strong>."
-            },
-            {
-                q: "What symbol is typically used to mark an outlier on a box plot?",
-                options: ["A circle or cross", "A solid bar", "A wavy line", "A triangle"],
-                correct: 0,
-                ai: "Outliers are typically marked with a <strong>cross (x)</strong> or a dot outside the whiskers."
-            },
-            {
-                q: "If Q1 = 32 and Q3 = 47, what is the IQR?",
-                options: ["79", "15", "39.5", "64"],
-                correct: 1,
-                ai: "$IQR = Q3 - Q1$. $47 - 32 = 15$."
-            },
-            {
-                q: "If 25 small squares in a histogram represent 5 people, what does 1 small square represent?",
-                options: ["1 person", "0.2 people", "5 people", "0.5 people"],
-                correct: 1,
-                ai: "$5 \\text{ people} / 25 \\text{ squares} = 1/5 = 0.2$ people per square."
-            },
-            {
-                q: "If a histogram shows a 'tail' extending to the right, the data is:",
-                options: ["Symmetric", "Positively Skewed", "Negatively Skewed", "Uniform"],
-                correct: 1,
-                ai: "A tail extending to the right (higher values) indicates <strong>Positive Skewness</strong>."
-            },
-            {
-                q: "For the interval '50 ≤ t < 80' with Frequency=6, what is the Frequency Density?",
-                options: ["0.2", "5", "30", "6"],
-                correct: 0,
-                ai: "Width = $80-50=30$. Density = $6 / 30 = 0.2$."
-            },
-            {
-                q: "Which chart is basically a line graph joining histogram midpoints?",
-                options: ["Bar chart", "Pie chart", "Frequency Polygon", "Scatter plot"],
-                correct: 2,
-                ai: "A <strong>Frequency Polygon</strong> is created by joining the midpoints of the tops of histogram bars."
-            },
-            {
-                q: "If a box plot whisker extends very far to the left, the data likely has:",
-                options: ["Positive Skew", "Negative Skew", "No Skew", "High Median"],
-                correct: 1,
-                ai: "A long whisker to the left (lower values) suggests <strong>Negative Skew</strong> (tail to the left)."
-            },
-            {
-                q: "Why is k=1 'the easiest value to use' for histogram area calculations?",
-                options: ["It makes Area = Frequency", "It makes Frequency = Class Width", "It makes Height = Frequency", "It removes the y-axis"],
-                correct: 0,
-                ai: "If k=1, the Area of the bar ($Width \\times Height$) is exactly equal to the <strong>Frequency</strong>."
-            },
-            {
-                q: "What defines the 'Whiskers' in a box plot?",
-                options: ["From Min to Max (excluding outliers)", "From Q1 to Q3", "From Mean to Median", "From 0 to Max"],
-                correct: 0,
-                ai: "Whiskers extend from the quartiles to the <strong>lowest/highest values that are not outliers</strong>."
-            },
-            {
-                q: "Given Q1=10, Q3=20, IQR=10. Is the value 36 an outlier?",
-                options: ["No", "Yes", "Cannot determine", "Only if it's negative"],
-                correct: 1,
-                ai: "Upper limit = $Q3 + 1.5(IQR) = 20 + 1.5(10) = 35$. Since $36 > 35$, it is <strong>Yes</strong>, an outlier."
-            },
-            {
-                q: "In the puzzle example (Page 11), why was a histogram used?",
-                options: ["Because time is continuous data", "Because time is discrete", "Because there were gaps in data", "Because it looks better"],
-                correct: 0,
-                ai: "Histograms are used because <strong>Time is continuous</strong> data."
-            },
-            {
-                q: "If a dataset has variance = 14.67, what is the Standard Deviation?",
-                options: ["14.67", "215.2", "3.83", "7.33"],
-                correct: 2,
-                ai: "Standard Deviation = $\\sqrt{Variance} = \\sqrt{14.67} \\approx 3.83$."
-            },
-            {
-                q: "To estimate frequency between specific values (e.g., 36 to 45) in a histogram, you calculate:",
-                options: ["The area of the bars between those x-values", "The average height", "The total width", "The number of bars"],
-                correct: 0,
-                ai: "You find the <strong>area</strong> of the bars (or partial bars) that fall between the specific x-values."
-            },
-            {
-                q: "Which visualization allows you to easily see the 'Median'?",
-                options: ["Histogram", "Frequency Polygon", "Box Plot", "Scatter Plot"],
-                correct: 2,
-                ai: "The <strong>Box Plot</strong> explicitly marks the Median as a line inside the box."
-            },
-            {
-                q: "If Q1=300, Q3=400 for Male turtles, and Q1=250, Q3=350 for Females, who has the higher IQR?",
-                options: ["Males", "Females", "They are equal", "Cannot tell"],
-                correct: 2,
-                ai: "Male IQR = 400-300=100. Female IQR = 350-250=100. They are <strong>equal</strong>."
-            },
-            {
-                q: "What is the primary difference between a Bar Chart and a Histogram?",
-                options: ["Bar charts have gaps; Histograms do not (for continuous data)", "Bar charts are for numbers; Histograms for words", "They are the same", "Histograms are always vertical"],
-                correct: 0,
-                ai: "Histograms represent continuous data and usually have <strong>no gaps</strong> between bars, whereas bar charts (categorical) have gaps."
-            },
-            {
-                q: "If the frequency of a class is 10 and the frequency density is 2, what is the class width?",
-                options: ["20", "5", "8", "12"],
-                correct: 1,
-                ai: "$Density = Freq / Width$, so $Width = Freq / Density$. $10 / 2 = 5$."
-            },
-            {
-                q: "The 'Range' in a box plot calculation (Page 16) is defined as:",
-                options: ["Max (outlier or not) - Min (outlier or not)", "Upper Whisker - Lower Whisker", "Q3 - Q1", "Mean - Mode"],
-                correct: 0,
-                ai: "The Range generally refers to the difference between the absolute highest and absolute lowest values (including outliers if present)."
-            },
-            {
-                q: "In the giant snail example, why was 32cm considered an outlier?",
-                options: ["It was > Q3 + 1.5IQR", "It was > Mean + 2SD", "It was > Mean + 3SD", "It was simply too big"],
-                correct: 1,
-                ai: "Using the example's method: Mean (21) + 2*SD (7.66) = 28.66. Since 32 > 28.66, it is an outlier."
-            },
-            {
-                q: "Frequency Density allows us to compare classes that have:",
-                options: ["Different class widths", "Different colors", "Different data types", "Missing values"],
-                correct: 0,
-                ai: "Frequency Density standardizes the bars so we can compare data even if the <strong>class widths are unequal</strong>."
-            },
-            {
-                q: "If a box plot is symmetrical with the median in the exact center of the box, the data is:",
-                options: ["Skewed Left", "Skewed Right", "Normally Distributed (Symmetric)", "Bimodal"],
-                correct: 2,
-                ai: "Symmetry in the box plot (whiskers equal length, median in center) suggests a <strong>Symmetric (Normal)</strong> distribution."
-            }
+            { q: "Which type of data is best represented by a Histogram?", options: ["Discrete data", "Grouped continuous data", "Nominal data", "Qualitative data"], correct: 1 },
+            { q: "In a histogram, what does the area of each bar represent?", options: ["The class width", "The frequency density", "The frequency", "The cumulative frequency"], correct: 2 },
+            { q: "To calculate the height of a bar in a histogram (Frequency Density), which formula is used (assuming k=1)?", options: ["Frequency × Class Width", "Frequency / Class Width", "Class Width / Frequency", "Frequency + Class Width"], correct: 1 },
+            { q: "How is a Frequency Polygon formed from a histogram?", options: ["By joining the top-left corners of each bar", "By joining the midpoints of the tops of each bar", "By joining the top-right corners of each bar", "By drawing a line of best fit"], correct: 1 },
+            { q: "If a class has a frequency of 55 and a class width of 5, what is the Frequency Density?", options: ["11", "275", "0.09", "50"], correct: 0 },
+            { q: "What is an 'Outlier'?", options: ["The average value", "The most frequent value", "An extreme value outside the overall pattern", "The middle value"], correct: 2 },
+            { q: "Using the Quartile method, a value is considered an outlier if it is greater than:", options: ["$Q_3 + 1.5(IQR)$", "$Q_3 + (IQR)$", "Median + 2(SD)", "$Q_3 + 2(IQR)$"], correct: 0 },
+            { q: "Using the Quartile method, a value is considered an outlier if it is less than:", options: ["$Q_1 - 1.5(IQR)$", "$Q_1 - (IQR)$", "Mean - 2(SD)", "$Q_1 - 0.5(IQR)$"], correct: 0 },
+            { q: "Using the Standard Deviation method (as per the notes), an outlier is an observation lying outside:", options: ["Mean ± 1 SD", "Mean ± 2 SD", "Mean ± 3 SD", "Median ± 1.5 SD"], correct: 1 },
+            { q: "What five values are required to draw a Box Plot?", options: ["Mean, Median, Mode, Range, SD", "Min, Q1, Median, Q3, Max", "Min, Max, Mean, Variance, n", "Q1, Q2, Q3, Q4, Q5"], correct: 1 },
+            { q: "In a box plot, the 'box' itself represents which statistic?", options: ["The Range", "The Standard Deviation", "The Interquartile Range (IQR)", "The Variance"], correct: 2 },
+            { q: "If a histogram has unequal class intervals, you must use:", options: ["Frequency on the y-axis", "Frequency Density on the y-axis", "Cumulative Frequency", "Bar Charts"], correct: 1 },
+            { q: "Calculate the class width for the interval '$25 \\le t < 30$'.", options: ["4", "5", "6", "27.5"], correct: 1 },
+            { q: "If Mean = 21 and SD = 3.83, what is the upper boundary for outliers (Mean + 2SD)?", options: ["24.83", "28.66", "13.34", "32.00"], correct: 1 },
+            { q: "What does the line inside the box of a Box Plot represent?", options: ["The Mean", "The Mode", "The Median", "The Range"], correct: 2 },
+            { q: "If a histogram bar has a height of 3.2 and a width of 10, what is the frequency?", options: ["3.2", "13.2", "32", "0.32"], correct: 2 },
+            { q: "When comparing two box plots, a higher median indicates:", options: ["Greater spread of data", "Higher average value", "More outliers", "Positive skew"], correct: 1 },
+            { q: "When comparing two box plots, a longer box (larger IQR) indicates:", options: ["Higher values", "Greater consistency", "Greater variability/spread", "Symmetric distribution"], correct: 2 },
+            { q: "In the context of the turtle example, if male turtles have a wider total range than females, it means:", options: ["Males are heavier on average", "Males are lighter on average", "Males have more variable masses", "Females have more outliers"], correct: 2 },
+            { q: "What symbol is typically used to mark an outlier on a box plot?", options: ["A circle or cross", "A solid bar", "A wavy line", "A triangle"], correct: 0 },
+            { q: "If Q1 = 32 and Q3 = 47, what is the IQR?", options: ["79", "15", "39.5", "64"], correct: 1 },
+            { q: "If 25 small squares in a histogram represent 5 people, what does 1 small square represent?", options: ["1 person", "0.2 people", "5 people", "0.5 people"], correct: 1 },
+            { q: "If a histogram shows a 'tail' extending to the right, the data is:", options: ["Symmetric", "Positively Skewed", "Negatively Skewed", "Uniform"], correct: 1 },
+            { q: "For the interval '$50 \\le t < 80$' with Frequency=6, what is the Frequency Density?", options: ["0.2", "5", "30", "6"], correct: 0 },
+            { q: "Which chart is basically a line graph joining histogram midpoints?", options: ["Bar chart", "Pie chart", "Frequency Polygon", "Scatter plot"], correct: 2 },
+            { q: "If a box plot whisker extends very far to the left, the data likely has:", options: ["Positive Skew", "Negative Skew", "No Skew", "High Median"], correct: 1 },
+            { q: "Why is k=1 'the easiest value to use' for histogram area calculations?", options: ["It makes Area = Frequency", "It makes Frequency = Class Width", "It makes Height = Frequency", "It removes the y-axis"], correct: 0 },
+            { q: "What defines the 'Whiskers' in a box plot?", options: ["From Min to Max (excluding outliers)", "From Q1 to Q3", "From Mean to Median", "From 0 to Max"], correct: 0 },
+            { q: "Given Q1=10, Q3=20, IQR=10. Is the value 36 an outlier?", options: ["No", "Yes", "Cannot determine", "Only if it's negative"], correct: 1 },
+            { q: "In the puzzle example (Page 11), why was a histogram used?", options: ["Because time is continuous data", "Because time is discrete", "Because there were gaps in data", "Because it looks better"], correct: 0 },
+            { q: "If a dataset has variance = 14.67, what is the Standard Deviation?", options: ["14.67", "215.2", "3.83", "7.33"], correct: 2 },
+            { q: "To estimate frequency between specific values (e.g., 36 to 45) in a histogram, you calculate:", options: ["The area of the bars between those x-values", "The average height", "The total width", "The number of bars"], correct: 0 },
+            { q: "Which visualization allows you to easily see the 'Median'?", options: ["Histogram", "Frequency Polygon", "Box Plot", "Scatter Plot"], correct: 2 },
+            { q: "If Q1=300, Q3=400 for Male turtles, and Q1=250, Q3=350 for Females, who has the higher IQR?", options: ["Males", "Females", "They are equal", "Cannot tell"], correct: 2 },
+            { q: "What is the primary difference between a Bar Chart and a Histogram?", options: ["Bar charts have gaps; Histograms do not (for continuous data)", "Bar charts are for numbers; Histograms for words", "They are the same", "Histograms are always vertical"], correct: 0 },
+            { q: "If the frequency of a class is 10 and the frequency density is 2, what is the class width?", options: ["20", "5", "8", "12"], correct: 1 },
+            { q: "The 'Range' in a box plot calculation (Page 16) is defined as:", options: ["Max (outlier or not) - Min (outlier or not)", "Upper Whisker - Lower Whisker", "Q3 - Q1", "Mean - Mode"], correct: 0 },
+            { q: "In the giant snail example, why was 32cm considered an outlier?", options: ["It was > Q3 + 1.5IQR", "It was > Mean + 2SD", "It was > Mean + 3SD", "It was simply too big"], correct: 1 },
+            { q: "Frequency Density allows us to compare classes that have:", options: ["Different class widths", "Different colors", "Different data types", "Missing values"], correct: 0 },
+            { q: "If a box plot is symmetrical with the median in the exact center of the box, the data is:", options: ["Skewed Left", "Skewed Right", "Normally Distributed (Symmetric)", "Bimodal"], correct: 2 }
         ],
         "ch3": [
             {
@@ -732,9 +531,8 @@
     let currentChapter = [];
     let currentIndex = 0;
     let score = 0;
-    let aiCache = {}; // Cache AI responses per session
+    let aiCache = {}; 
 
-    // --- DOM REFERENCES ---
     const ui = {
         screens: { menu: document.getElementById('screen-menu'), quiz: document.getElementById('screen-quiz'), result: document.getElementById('screen-result') },
         text: document.getElementById('question-text'),
@@ -755,7 +553,6 @@
         score = 0;
         aiCache = {};
         
-        // Shuffle questions
         currentChapter.sort(() => Math.random() - 0.5);
         
         showScreen('quiz');
@@ -764,7 +561,7 @@
 
     function renderQuestion() {
         const q = currentChapter[currentIndex];
-        ui.text.innerText = `${currentIndex + 1}. ${q.q}`;
+        ui.text.innerHTML = `${currentIndex + 1}. ${q.q}`; // Use innerHTML for math
         ui.progress.innerText = `Question ${currentIndex + 1}/${currentChapter.length}`;
         ui.options.innerHTML = '';
         ui.aiBox.classList.remove('show');
@@ -774,14 +571,18 @@
         q.options.forEach((opt, idx) => {
             const btn = document.createElement('button');
             btn.className = 'option';
-            btn.innerText = opt;
+            btn.innerHTML = opt; // Use innerHTML for math in options
             btn.onclick = () => handleAnswer(idx, btn);
             ui.options.appendChild(btn);
         });
+
+        // Trigger MathJax to render the new content
+        if (window.MathJax) {
+            MathJax.typesetPromise();
+        }
     }
 
     function handleAnswer(selectedIdx, btn) {
-        // Disable all buttons
         Array.from(ui.options.children).forEach(b => b.disabled = true);
         
         const q = currentChapter[currentIndex];
@@ -793,7 +594,6 @@
         } else {
             btn.classList.add('incorrect');
             ui.options.children[correctIdx].classList.add('correct');
-            // Auto fetch AI for wrong answers
             fetchAIExplanation();
         }
         ui.nextBtn.disabled = false;
@@ -801,17 +601,18 @@
 
     async function fetchAIExplanation() {
         const q = currentChapter[currentIndex];
-        const cacheKey = currentIndex;
+        const cacheKey = currentChapter[currentIndex].q; // Use question text as key
 
         ui.aiBox.classList.add('show');
         
-        // Return cached if exists
+        // 1. Check if we already have this explanation cached
         if(aiCache[cacheKey]) {
             ui.aiContent.innerHTML = aiCache[cacheKey];
+            if(window.MathJax) MathJax.typesetPromise();
             return;
         }
 
-        // Loading State
+        // 2. Show Loading Spinner
         ui.aiContent.innerHTML = `
             <div class="loader">
                 <div class="spinner"></div>
@@ -819,16 +620,19 @@
             </div>
         `;
 
-        // Prepare Prompt
+        // 3. Construct the Prompt for the AI
         const prompt = `
+            You are a helpful Statistics Tutor.
             Question: "${q.q}"
             Options: ${q.options.join(', ')}
-            Correct Answer: "${q.options[q.correct]}"
+            Correct Answer Index: ${q.correct} (The answer is "${q.options[q.correct]}")
             
-            Task: Explain briefly and clearly why the correct answer is correct and why the others might be wrong. Keep it under 3 sentences. Use Markdown for bolding key terms.
+            Task: Explain clearly why the correct answer is right and why the others are wrong. 
+            Keep it concise (max 3 sentences). Use Markdown bolding for key terms.
         `;
 
         try {
+            // 4. Make the REAL API Call to Groq
             const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
                 method: "POST",
                 headers: {
@@ -838,21 +642,37 @@
                 body: JSON.stringify({
                     messages: [{ role: "user", content: prompt }],
                     model: AI_MODEL,
-                    temperature: 0.5,
+                    temperature: 0.3,
                     max_tokens: 150
                 })
             });
 
-            const data = await response.json();
-            
-            if(data.error) throw new Error(data.error.message);
+            if (!response.ok) {
+                throw new Error(`API Error: ${response.status}`);
+            }
 
-            const aiText = parseMarkdown(data.choices[0].message.content);
-            aiCache[cacheKey] = aiText;
-            ui.aiContent.innerHTML = aiText;
+            const data = await response.json();
+            const rawAiText = data.choices[0].message.content;
+
+            // 5. Format the output (Markdown to HTML)
+            // Simple converter for bolding **text**
+            const formattedText = rawAiText
+                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                .replace(/\n/g, '<br>');
+
+            // 6. Save to cache and display
+            aiCache[cacheKey] = formattedText;
+            ui.aiContent.innerHTML = formattedText;
+
+            // Re-render Math symbols if the AI used any
+            if(window.MathJax) MathJax.typesetPromise();
 
         } catch (err) {
-            ui.aiContent.innerHTML = `<span style="color:red">Error: ${err.message}. Please check your API Key.</span>`;
+            console.error(err);
+            ui.aiContent.innerHTML = `<span style="color:var(--error-text)">
+                <strong>Connection Error:</strong> Could not reach the AI. <br>
+                Check your internet or API Key.
+            </span>`;
         }
     }
 
@@ -877,16 +697,6 @@
         ui.screens[name].classList.add('active');
     }
 
-    // Simple Markdown Parser for AI text (Bold & Newlines)
-    function parseMarkdown(text) {
-        let html = text
-            .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') // Bold
-            .replace(/\n/g, '<br>'); // Newlines
-        return html;
-    }
-
 </script>
 </body>
-
 </html>
-
