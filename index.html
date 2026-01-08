@@ -148,6 +148,10 @@
                     <span>Chapter 3: Probability</span>
                     <span style="background:#f1f5f9; padding:4px 10px; border-radius:20px; font-size:0.8rem;">40 Qs</span>
                 </button>
+                <button class="chapter-btn" onclick="startChapter('ch4')">
+                    <span>Chapter 4: Probability</span>
+                    <span style="background:#f1f5f9; padding:4px 10px; border-radius:20px; font-size:0.8rem;">40 Qs</span>
+                </button>
             </div>
         </div>
     </div>
@@ -484,6 +488,208 @@
                 options: ["0", "0.5", "1", "100"],
                 correct: 2,
             }
+        ],
+        "ch4": [
+            {
+                q: "What defines a discrete random variable?",
+                options: ["It takes values in a continuous interval.", "It assumes a countable number of distinct values.", "It is always equal to 1.", "It cannot be negative."],
+                correct: 1
+            },
+            {
+                q: "In the household size example, why is the value '8' used?",
+                options: ["To represent exactly 8 people.", "To represent '8 or more' for simplicity.", "It was the maximum observed value.", "It is an outlier."],
+                correct: 1
+            },
+            {
+                q: "The probability function (pf) of a discrete random variable is also commonly called:",
+                options: ["Probability Mass Function (pmf)", "Cumulative Density Function", "Continuous Probability Function", "Variance Function"],
+                correct: 0
+            },
+            {
+                q: "Which of the following is a necessary condition for a probability function $p(x)$?",
+                options: ["$p(x) > 1$", "$p(x) \\ge 0$ for all real numbers $x$", "$p(x) = 0$ for all $x \\in S$", "Sum of $p(x)$ is 0"],
+                correct: 1
+            },
+            {
+                q: "What must the sum of probabilities $\\sum p(x)$ equal for a valid discrete distribution?",
+                options: ["0", "0.5", "1", "100"],
+                correct: 2
+            },
+            {
+                q: "If a value $x$ is not in the sample space $S$ of a random variable $X$, what is $p(x)$?",
+                options: ["1", "0", "Undefined", "0.5"],
+                correct: 1
+            },
+            {
+                q: "The Cumulative Distribution Function (cdf) $F(x)$ represents:",
+                options: ["$P(X = x)$", "$P(X > x)$", "$P(X \\le x)$", "$P(X \\ge x)$"],
+                correct: 2
+            },
+            {
+                q: "The Expected Value $E(X)$ of a discrete random variable is also known as the:",
+                options: ["Median", "Mode", "Mean", "Variance"],
+                correct: 2
+            },
+            {
+                q: "Which formula represents the Expected Value $E(X)$?",
+                options: ["$\\sum x^2 p(x)$", "$\\sum x p(x)$", "$\\sum p(x)$", "$\\sum (x-\\mu)^2$"],
+                correct: 1
+            },
+            {
+                q: "The Variance of $X$, denoted $Var(X)$, is defined as:",
+                options: ["$E(X)$", "$E[(X - E(X))^2]$", "$\\sqrt{E(X)}$", "$E(X^2)$"],
+                correct: 1
+            },
+            {
+                q: "What is the relationship between Standard Deviation ($sd$) and Variance?",
+                options: ["$sd(X) = Var(X)^2$", "$sd(X) = Var(X)$", "$sd(X) = \\sqrt{Var(X)}$", "$sd(X) = 1/Var(X)$"],
+                correct: 2
+            },
+            {
+                q: "Which is the computational shortcut formula for Variance?",
+                options: ["$E(X^2) - [E(X)]^2$", "$E(X^2) + E(X)$", "$[E(X)]^2 - E(X^2)$", "$E(X) - E(X^2)$"],
+                correct: 0
+            },
+            {
+                q: "In the household size example, the mean household size was calculated to be approximately:",
+                options: ["1.5", "2.36", "3.5", "4.0"],
+                correct: 1
+            },
+            {
+                q: "In the rat experiment example, what happens if the rat makes an incorrect choice?",
+                options: ["It gets food.", "The experiment ends.", "It is returned to the start to choose again.", "It is removed from the study."],
+                correct: 2
+            },
+            {
+                q: "In the rat experiment with 4 doors (1 correct), what is $P(X=1)$?",
+                options: ["1/2", "1/3", "1/4", "3/4"],
+                correct: 2
+            },
+            {
+                q: "In the rat experiment, the expected number of trials $E(X)$ was:",
+                options: ["2.5", "2.0", "3.0", "4.0"],
+                correct: 0
+            },
+            {
+                q: "In the Car Sales example, what is the probability of selling exactly 2 cars?",
+                options: ["0.10", "0.20", "0.30", "0.40"],
+                correct: 2
+            },
+            {
+                q: "In the Car Sales example, the expected number of cars sold (Mean) was:",
+                options: ["1.5", "2.1", "3.0", "2.5"],
+                correct: 1
+            },
+            {
+                q: "If $Var(X) = 1.29$, what is the Standard Deviation?",
+                options: ["1.29", "1.66", "1.136", "0.645"],
+                correct: 2
+            },
+            {
+                q: "In the coin toss example ($n=2$), the sample space $S$ is:",
+                options: ["{H, T}", "{HH, TT}", "{HH, HT, TH, TT}", "{H, T, H, T}"],
+                correct: 2
+            },
+            {
+                q: "In the coin toss example, what is the probability of getting exactly 1 Head ($X=1$)?",
+                options: ["0.25", "0.50", "0.75", "1.00"],
+                correct: 1
+            },
+            {
+                q: "The event 'At least one head' is represented by:",
+                options: ["$X = 1$", "$X = 0$", "$X \\ge 1$", "$X > 1$"],
+                correct: 2
+            },
+            {
+                q: "If $E(X) = 2$ and $E(X^2) = 5$, what is $Var(X)$?",
+                options: ["1", "3", "7", "9"],
+                correct: 0
+            },
+            {
+                q: "Which value cannot be a probability?",
+                options: ["0.001", "0", "1", "-0.1"],
+                correct: 3
+            },
+            {
+                q: "The sum of $(x - E(X))^2 p(x)$ is equal to:",
+                options: ["$E(X)$", "$Var(X)$", "$sd(X)$", "0"],
+                correct: 1
+            },
+            {
+                q: "In a probability distribution table, the sum of the $P(X=x)$ column must always be:",
+                options: ["100", "0", "1", "Variable"],
+                correct: 2
+            },
+            {
+                q: "What does the symbol $\\mu$ usually represent in statistics?",
+                options: ["Variance", "Standard Deviation", "Mean (Expected Value)", "Median"],
+                correct: 2
+            },
+            {
+                q: "If $P(X=1)=0.3$ and $P(X=2)=0.7$, what is $E(X)$?",
+                options: ["1.5", "1.7", "1.3", "2.0"],
+                correct: 1
+            },
+            {
+                q: "If a discrete variable $X$ can only take values 0 and 1, it is often called a:",
+                options: ["Bernoulli variable", "Continuous variable", "Normal variable", "Poisson variable"],
+                correct: 0
+            },
+            {
+                q: "In the car sales example, the variance was calculated to be:",
+                options: ["1.29", "2.1", "1.136", "0.5"],
+                correct: 0
+            },
+            {
+                q: "Standard deviation is measured in:",
+                options: ["Square units of the original data", "The same units as the original data", "No units (dimensionless)", "Percent"],
+                correct: 1
+            },
+            {
+                q: "Variance is measured in:",
+                options: ["Square units of the original data", "The same units as the original data", "No units", "Percent"],
+                correct: 0
+            },
+            {
+                q: "For a constant $c$, what is $E(c)$?",
+                options: ["0", "1", "$c$", "$c^2$"],
+                correct: 2
+            },
+            {
+                q: "If $X$ represents the number of heads in 2 coin tosses, what is $P(X=2)$?",
+                options: ["0.25", "0.50", "0.75", "1.0"],
+                correct: 0
+            },
+            {
+                q: "Which graphical method is often used to display a discrete probability distribution?",
+                options: ["Scatter plot", "Line chart", "Vertical line graph or bar chart", "Pie chart"],
+                correct: 2
+            },
+            {
+                q: "The term 'Random Phenomenon' implies that:",
+                options: ["Outcomes are known beforehand.", "Outcomes are uncertain but follow a pattern.", "Outcomes are always 50/50.", "No pattern exists."],
+                correct: 1
+            },
+            {
+                q: "In the household example, $P(X=1)$ was:",
+                options: ["0.3002", "0.50", "0.10", "0.05"],
+                correct: 0
+            },
+            {
+                q: "In the household example, probability decreases as household size:",
+                options: ["Increases", "Decreases", "Stays same", "Fluctuates randomly"],
+                correct: 0
+            },
+            {
+                q: "Can $E(X)$ be a value that $X$ can never actually take? (e.g. 2.5 children)",
+                options: ["Yes, it is a weighted average.", "No, it must be a possible value.", "Only for continuous variables.", "Only if variance is 0."],
+                correct: 0
+            },
+            {
+                q: "If $p(x) = 1/k$ for $x=1,2,3...k$, this distribution is:",
+                options: ["Binomial", "Uniform", "Normal", "Skewed"],
+                correct: 1
+            }
         ]
     };
 
@@ -662,4 +868,5 @@
 </script>
 </body>
 </html>
+
 
